@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../opportunities/bloc/opportunities_bloc.dart';
 import '../widgets/opportunity_quotes_toggle.dart';
 import '../../quotes/ui/screens/my_quotes_screen.dart';
 import '../../opportunities/ui/screens/opportunities_screen.dart';
@@ -90,10 +92,37 @@ class _HomeViewState extends State<HomeView> {
               },
             ),
 
-            // Scrollable content below the fixed buttons
+            // main content
             Expanded(
               child: selectedPage == "Opportunities"
-                  ? const OpportunitiesScreen()
+                  ? BlocConsumer<OpportunitiesBloc, OpportunitiesState>(
+                      listener: (context, state) {
+                        if (state is OpportunitiesError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.message)),
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        if (state is OpportunitiesLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        if (state is OpportunitiesLoaded) {
+                          return OpportunitiesScreen(
+                            opportunities: state.opportunities,
+                          );
+                        }
+
+                        if (state is OpportunitiesError) {
+                          return Center(child: Text(state.message));
+                        }
+
+                        return const SizedBox.shrink();
+                      },
+                    )
                   : const MyQuotesScreen(),
             ),
           ],
