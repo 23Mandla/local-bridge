@@ -12,4 +12,5 @@ class OpportunitiesState with _$OpportunitiesState {
 
   const factory OpportunitiesState.error({required String message}) =
       OpportunitiesError;
+
 }
