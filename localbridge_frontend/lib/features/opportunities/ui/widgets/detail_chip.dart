@@ -37,7 +37,7 @@ class DetailChip extends StatelessWidget {
               label,
               softWrap: true,
               style: const TextStyle(
-                fontSize: 10,
+                fontSize: 8,
                 color: Color(0xFF242D28),
               ),
             ),
