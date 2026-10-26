@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:localbridge_frontend/features/home/view/home_view.dart';
 
+import '../features/quotes/ui/screens/buyer_inbox_screen.dart';
+
 class BottomNavBar extends StatefulWidget {
   final int defaultIndex;
 
@@ -15,10 +17,10 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  final List<Widget> bottomNavItems = const <Widget>[
+  static const List<Widget> bottomNavItems = <Widget>[
     HomeView(),
-    // BuyerView(),
-    // BusinessProfilePage(),
+    BuyerInboxScreen(),
+    //BusinessProfileScreen(),
   ];
 
   late int _selectedIndex;
